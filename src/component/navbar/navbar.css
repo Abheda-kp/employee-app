@@ -1,0 +1,32 @@
+.side-bar{
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    height:100vh;
+    width: 300px;
+    top: 0;
+    padding: 10px;
+    background-color: white;
+}
+.side-bar ul li{
+  display: flex;    
+  align-items: center;  
+  background-color: #03AEEE;
+  list-style-type:none;
+  width:290px;
+  height: 50px;
+  border-radius: 40px 0px 0px 40px;
+  color: white;
+}
+.side-bar ul li img{
+  background-color: white;
+  border-radius: 50%;
+  width: 30px;
+}
+.side-bar img{
+  background-color: white;
+}
+.logo-icon{
+    width: 200px;
+
+}

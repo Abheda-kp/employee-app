@@ -1,0 +1,14 @@
+.box{
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.label{
+    color: gray;
+}
+
+.value{
+    font-weight:bold;
+}

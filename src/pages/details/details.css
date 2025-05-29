@@ -1,0 +1,15 @@
+.left-head{
+    font-size: x-large;
+    font-weight: bold;
+}
+.right-head{
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+.right-head button{
+    background-color: lightblue;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: none;
+}

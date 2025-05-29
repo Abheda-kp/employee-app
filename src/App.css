@@ -1,0 +1,13 @@
+.heading{
+    border-radius: 10px;
+    border: 10px;
+    box-shadow: 5px 5px  #e6e4e4;
+    padding: 20px;
+    background-color:white ;
+    margin-left: 10px;
+    margin-top: 10px;
+    width: 100%;
+    font-size:xx-large;
+    font-weight: bold;
+   
+}

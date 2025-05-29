@@ -1,0 +1,54 @@
+.login{
+  width: 50%;
+  height: 50px;
+  background-color: #03aeee;
+  border: none;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0px 3px 6px rgba(176, 230, 250, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.364;
+}
+button:disabled {
+  background-color: #0096e0;
+  cursor: not-allowed;
+  color:white;
+}
+
+button:hover {
+  background-color: #0096e0;
+}
+.login:hover {
+  background-color: #0296ce;
+}
+
+.cancel{
+  
+    /* margin: 4px 2px; */
+     margin-left: 20px;
+    border-radius: 5px;
+    border: 1px solid black;
+    background-color: white;
+    color: gray;
+    width: 100px;
+    text-align: center;
+    padding: 0;
+     height: 30px;
+}
+
+.Create{
+    background-color: #03AEEE;
+    border-radius: 5px;
+    border: 10px;
+    color: white;
+    width: 100px;
+    padding: 0;
+    margin-left: 20px;
+    height: 30px;
+}
+
