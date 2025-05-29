@@ -1,5 +1,9 @@
 import InputField from "../inputfield/inputfield";
+<<<<<<< HEAD
 import "./employeeform.css"
+=======
+
+>>>>>>> 68c7065 (first-commit)
 const EmployeeForm = ({
   values,
   onChange,
@@ -11,11 +15,16 @@ const EmployeeForm = ({
     roles: string;
     status: string;
 
+<<<<<<< HEAD
    
+=======
+    address: {
+>>>>>>> 68c7065 (first-commit)
       flatNo: string;
       line1: string;
       line2: string;
       pincode: string;
+<<<<<<< HEAD
     
   };
 
@@ -23,6 +32,15 @@ const EmployeeForm = ({
 }) => {
   return (
      <div className="form">
+=======
+    };
+  };
+
+  onChange: (field: string, value: string) => void;
+}) => {
+  return (
+    <div className="employee-detail-input-section">
+>>>>>>> 68c7065 (first-commit)
       <InputField
         id="emp-employeeNmae-input"
         label="Employee Name"
@@ -55,6 +73,7 @@ const EmployeeForm = ({
       <InputField
         id="Address"
         label="Address"
+<<<<<<< HEAD
         placeholder="Flat No"
         value={values.flatNo}
         onChange={(e) => onChange("Flat No", e.target.value)}
@@ -77,6 +96,11 @@ const EmployeeForm = ({
       placeholder="pincode"
       value={values.pincode}
       onChange={(e) => onChange("pincode", e.target.value)}
+=======
+        placeholder="Enter Address"
+        value={values.experience}
+        onChange={(e) => onChange("Address", e.target.value)}
+>>>>>>> 68c7065 (first-commit)
       />
       <InputField
         id="emp-experience"
