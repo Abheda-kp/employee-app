@@ -1,5 +1,5 @@
 import InputField from "../inputfield/inputfield";
-
+import "./employeeform.css"
 const EmployeeForm = ({
   values,
   onChange,
@@ -11,18 +11,18 @@ const EmployeeForm = ({
     roles: string;
     status: string;
 
-    address: {
+   
       flatNo: string;
       line1: string;
       line2: string;
       pincode: string;
-    };
+    
   };
 
-  onChange: (field: string, value: string) => void;
+  onChange: (field: string, value:string) => void;
 }) => {
   return (
-    <div className="employee-detail-input-section">
+     <div className="form">
       <InputField
         id="emp-employeeNmae-input"
         label="Employee Name"
@@ -55,9 +55,28 @@ const EmployeeForm = ({
       <InputField
         id="Address"
         label="Address"
-        placeholder="Enter Address"
-        value={values.experience}
-        onChange={(e) => onChange("Address", e.target.value)}
+        placeholder="Flat No"
+        value={values.flatNo}
+        onChange={(e) => onChange("Flat No", e.target.value)}
+      />
+       <InputField
+        id="Address"
+        //label="Address"
+        placeholder="line1"
+        value={values.line1}
+        onChange={(e) => onChange("line1", e.target.value)}
+      />
+       <InputField
+        id="Address"
+        //label="Address"
+        placeholder="line2"
+        value={values.line2}
+        onChange={(e) => onChange("line2", e.target.value)}
+      />
+      <InputField
+      placeholder="pincode"
+      value={values.pincode}
+      onChange={(e) => onChange("pincode", e.target.value)}
       />
       <InputField
         id="emp-experience"

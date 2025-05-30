@@ -15,7 +15,7 @@ const InputField = ({
   type?: string;
   placeholder?: string;
   label?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+   onChange?:(e: React.ChangeEvent<HTMLInputElement>) => void;
   value?: string;
   ref?: React.RefObject<HTMLInputElement | null>;
   id?: string;

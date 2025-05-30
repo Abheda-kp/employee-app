@@ -8,6 +8,7 @@ const EmployeeData =()=>{
       Status: "Probation",
       Experience: "5 Years",
       Department:"UI/UX",
+      Age:23,
       Address:{
          HouseNo:"B12",
          Line1:"Church Street",
@@ -24,6 +25,7 @@ const EmployeeData =()=>{
       Status: "Active",
       Experience: "7 Years",
       Department:"Developer",
+       Age:23,
       Address:{
          HouseNo:"J9",
          Line1:"Winter Haze",
@@ -40,6 +42,7 @@ const EmployeeData =()=>{
       Status: "Inactive",
       Experience: "6 Years",
       Department:"HR",
+       Age:23,
       Address:{
          HouseNo:"B42",
          Line1:"pk house",
