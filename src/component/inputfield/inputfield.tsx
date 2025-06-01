@@ -10,8 +10,8 @@ const InputField = ({
   id,
   endAdornment = null,
   disabled,
-  defaultVal}:
-{
+  defaultVal,
+}: {
   type?: string;
   placeholder?: string;
   label?: string;
@@ -20,26 +20,27 @@ const InputField = ({
   ref?: React.RefObject<HTMLInputElement | null>;
   id?: string;
   endAdornment?: React.ReactNode;
-  disabled?:boolean;
-  defaultVal?:string|undefined|number
+  disabled?: boolean;
+  defaultVal?: string | undefined | number;
 }) => {
   return (
     <>
       <div className="outer">
-        <label>{label}</label>
-        <input
-          id={id}
-          type={type}
-          placeholder={placeholder}
-          className="input-label"
-          onChange={onChange}
-          value={value}
-          ref={ref}
-          disabled={disabled}
-          defaultValue={defaultVal}
-          
-        />
-        <div>{endAdornment ? endAdornment : null}</div>
+        <div className="input">
+          <label>{label}</label>
+          <input
+            id={id}
+            type={type}
+            placeholder={placeholder}
+            className="input-label"
+            onChange={onChange}
+            value={value}
+            ref={ref}
+            disabled={disabled}
+            defaultValue={defaultVal}
+          />
+          <div>{endAdornment ? endAdornment : null}</div>
+        </div>
       </div>
       {/* <p>value is:{value}</p> */}
     </>

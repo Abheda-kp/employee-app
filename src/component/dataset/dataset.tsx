@@ -8,6 +8,8 @@ const EmployeeData =()=>{
       Status: "Probation",
       Experience: "5 Years",
       Department:"UI/UX",
+      Age:21,
+      email:"asda@gmail.com",
       Address:{
          HouseNo:"B12",
          Line1:"Church Street",
@@ -24,6 +26,8 @@ const EmployeeData =()=>{
       Status: "Active",
       Experience: "7 Years",
       Department:"Developer",
+      email:"asda@gmail.com",
+      Age:20,
       Address:{
          HouseNo:"J9",
          Line1:"Winter Haze",
@@ -39,7 +43,9 @@ const EmployeeData =()=>{
       Role: "Full stack",
       Status: "Inactive",
       Experience: "6 Years",
+      email:"asda@gmail.com",
       Department:"HR",
+      Age:20,
       Address:{
          HouseNo:"B42",
          Line1:"pk house",

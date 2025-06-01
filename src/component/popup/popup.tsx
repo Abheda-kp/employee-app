@@ -1,7 +1,15 @@
+import { useDispatch } from "react-redux";
 import "./popup.css"
-const PopupModal = ({ show, onClose }: { show: boolean; onClose: () => void }) => {
+import { EMPLOYEE_ACTION_TYPES } from "../../store/employee/employee.types";
+const PopupModal = ({ show, onClose ,id}: { show: boolean; onClose: () => void;id:number}) => {
   if (!show) return null;
-
+  const dispatch=useDispatch()
+  const handleDelete=(id:number)=>{
+     dispatch({type:EMPLOYEE_ACTION_TYPES.DELETE,payload:id})
+     onClose()
+     
+  }
+  
   return (
     <div className="modal-overlay">
       <div className="modal-box">
@@ -9,7 +17,7 @@ const PopupModal = ({ show, onClose }: { show: boolean; onClose: () => void }) =
         <div className="modal-content">
           Do you really want to delete this employee?
         </div>
-        <button className="modal-confirm">Confirm</button>
+        <button className="modal-confirm" onClick={()=>handleDelete(id)}>Confirm</button>
         <button className="modal-close" onClick={onClose}>
           Cancel
         </button>

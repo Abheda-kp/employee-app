@@ -6,7 +6,7 @@
     flex-direction: row;
 }
 
-.outer{
+.input{
     display: flex;
     gap: 10px;
     flex-direction: column;
@@ -14,3 +14,7 @@
 
 
 
+/* .outer{
+    display: flex;
+    flex-direction: row;
+} */
