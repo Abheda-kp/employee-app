@@ -9,3 +9,10 @@ LOGIN BUTTON-CONTROLLED AND UNCONTROLLED
 edit employeeid disable
 table gap
 select employee in list
+
+
+
+update button action 
+delete should have a close button
+prefill edit page and details page
+multiple reducer

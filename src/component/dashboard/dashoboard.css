@@ -19,9 +19,6 @@
    
 }
 
-<<<<<<< HEAD
-
-=======
 .form {
   flex: 1 1 33%; 
   padding: 15px;
@@ -30,7 +27,6 @@
   flex-direction: row; 
  
 }
->>>>>>> 68c7065 (first-commit)
 .flex-container {
   display: flex;
   justify-content: space-between;

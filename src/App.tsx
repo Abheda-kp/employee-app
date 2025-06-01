@@ -4,9 +4,11 @@ import CreateEmployee from "./pages/create-employee/create-employee";
 import Login from "./pages/login/login";
 import Layout from "./component/layout/layout";
 import NotFound from "./pages/errorpage/notfound";
-import Details from "./pages/details/details";
+import Details from "./pages/details/employee-details.tsx";
 import EmployeeList from "./pages/employee-list/employee-list";
 import EditEmployee from "./pages/edit-employee/edit-employee";
+import { Provider } from 'react-redux'
+import store from './store/store.ts'
 
 const router = createBrowserRouter([
   { 
@@ -15,6 +17,7 @@ const router = createBrowserRouter([
 
 
   },
+ 
   {
     path: "/login",
     element: <Login />
@@ -23,7 +26,7 @@ const router = createBrowserRouter([
     path: "/employees",
     element: <Layout />,
     children: [{ index: true, element: <CreateEmployee /> },
-      {  path:"details",element:<Details/>},
+      {  path:"details/:id",element:<Details/>},
     {path:"list",element:<EmployeeList/>},
     {path:":id",element:<EditEmployee/>},
     { path: "*", element: <NotFound /> } 
@@ -40,8 +43,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <>
-       
+       <Provider store={store}>
       <RouterProvider router={router} />
+      </Provider>
     </>
   );
 }

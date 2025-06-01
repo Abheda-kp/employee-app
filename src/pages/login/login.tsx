@@ -114,8 +114,8 @@ const Login = () => {
               type="submit"
             />
           </form>
-          <button onClick={getQuery}>get-Query-param</button>
-          <button onClick={setQuery}>set-Query-param</button>
+          {/* <button onClick={getQuery}>get-Query-param</button> */}
+          {/* <button onClick={setQuery}>set-Query-param</button> */}
         </div>
       </div>
     </div>
