@@ -20,8 +20,10 @@ const Select = ({
       <label>{label}</label>
 
       <select className="select" defaultValue={default_val} onClick={onClick} id={id} onChange={onChange}>
-        {options.map((element) => (
-          <option>{element}</option>
+         {options.map((element, id) => (
+          <option key={id} value={element}>
+            {element}
+          </option>
         ))}
       </select>
     </>

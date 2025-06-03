@@ -6,67 +6,109 @@ import InputField from "../inputfield/inputfield";
 import Button from "../button/button";
 import EmployeeData from "../dataset/dataset";
 import React, { useEffect, useState } from "react";
-import store from "../../store/store";
+import store, { useAppDispatch, useAppSelector } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
+import { addEmployee } from "../../store/employee/employeeReducer";
 import {
-  EMPLOYEE_ACTION_TYPES,
-  type Status,
-} from "../../store/employee/employee.types";
+  useCreateMutation,
+  useGetEmployeeListQuery,
+  usePutEmployeeMutation,
+} from "../../api-service/employees/employees.api";
+import { useGetDepartmentListQuery } from "../../api-service/department/department.api";
+// import { useCreateMutation } from "../../api-service/employees/employees.api";
+// import {
+//   EMPLOYEE_ACTION_TYPES,
+//   type Status,
+// } from "../../store/employee/employee.types";
 
-let createData={employeeId: "",
-    email: "",
-    name: "",
-    age: 0,
-    password: "",
-    role: "UI",
-    dateOfJoining: "",
-    experience: 2,
-    status: "Active",
-    department: "",
-    address: {
-      houseNo: "",
-      line1: "",
-      line2: "",
-      pincode: "",
-    }}
+let createData = {
+  employeeID: "",
+  email: "",
+  name: "",
+  age: 0,
+  password: "",
+  role: "UI",
+  dateOfJoining: "",
+  department: {
+    id: 1,
+    departmentName: "",
+  },
+  experience: 2,
+  status: "Active",
+  address: {
+    houseNo: "",
+    line1: "",
+    line2: "",
+    pincode: "",
+  },
+};
 const Dashboard = () => {
-  const employeeData = useSelector((state) => state.employees);
+  const { data: employeeData } = useGetEmployeeListQuery();
+  console.log("employeeData:", employeeData);
+  const { data: departments } = useGetDepartmentListQuery();
+  console.log("DEPTData:", departments);
+  const departmentOptions = departments?.map((d) => d.departmentName) || [];
+
   const { id } = useParams();
-const [dataValues, setDataValues] = useState(() => (id ? (employeeData.find((item) => item.employeeId === id)) : createData));
-
-    
-    
- 
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const handleClick = () => {
-    localStorage.setItem("isLoggedIn", "false");
-    navigate("/login");
-  };
-
-  
-  
-
-  const data = employeeData.find(
-    (item: any) => item.employeeId=== id
+  const [dataValues, setDataValues] = useState(() =>
+    id ? employeeData?.find((item) => item.id === Number(id)) : createData
   );
 
+  const navigate = useNavigate();
+  // const dispatch = useAppDispatch();
+
+  const handleClick = () => {
+    localStorage.setItem("token", "");
+    navigate("/login");
+  };
+  const [create, { isLoading }] = useCreateMutation();
+  const [update] = usePutEmployeeMutation();
+  const [error, setError] = useState("");
+
+  const data = employeeData?.find((item: any) => item.id === Number(id));
+
+  console.log("dataaaaa:", data);
   const handleSubmit = () => {
     if (!id) {
-      const action = { type: EMPLOYEE_ACTION_TYPES.ADD, payload: dataValues };
-      dispatch(action);
+      const payload = {
+        ...dataValues,
+        departmentId: Number(dataValues?.department.id),
+        experience: Number(dataValues?.experience),
+      };
+      create(payload)
+        .unwrap()
+        .then((response) => {
+          console.log("response is:", response);
+          // navigate("/employees");
+        })
+        .catch((error) => {
+          setError(error.data.message);
+          console.log(error);
+        });
+      // const action =
+      // { type: EMPLOYEE_ACTION_TYPES.ADD, payload: dataValues };
+      //  dispatch(addEmployee(dataValues));
+      // dispatch(action);
     } else {
-       console.log("datavalues",dataValues)
-       const action = { type: EMPLOYEE_ACTION_TYPES.UPDATE, payload: dataValues };
-       console.log("Dispatching action with payload:", dataValues);
-      dispatch(action);
+      // console.log("datavalues", dataValues);
+      // //  const action = { type: EMPLOYEE_ACTION_TYPES.UPDATE, payload: dataValues };
+      // console.log("Dispatching action with payload:", dataValues);
+      // dispatch(action);
+      const payload = {
+        id: data?.id,
+        employee: dataValues,
+      };
+      update(payload)
+        .unwrap()
+        .then(() => {})
+        .catch((error) => {
+          setError(error.data.message);
+        });
     }
   };
 
   useEffect(() => {
-    console.log(dataValues);
+    console.log("changes:", dataValues);
   }, [dataValues]);
 
   return (
@@ -106,23 +148,29 @@ const [dataValues, setDataValues] = useState(() => (id ? (employeeData.find((ite
               }
             />
           </div>
-          <div className="form">
-            <InputField
-              type="password"
-              placeholder="password"
-              label="Password"
-              defaultVal={id ? data?.password : ""}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setDataValues({ ...dataValues, password: e.target.value })
-              }
-            />
-          </div>
+          {!id && (
+            <div className="form">
+              <InputField
+                type="password"
+                placeholder="password"
+                label="Password"
+                defaultVal=""
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setDataValues({ ...dataValues, password: e.target.value })
+                }
+              />
+            </div>
+          )}
           <div className="form">
             <InputField
               type="Date"
               placeholder="Joining Date"
               label="Joining Date"
-              defaultVal={id ? data?.dateOfJoining : ""}
+              defaultVal={
+                id && data?.dateOfJoining
+                  ? moment(data.dateOfJoining).format("YYYY-MM-DD")
+                  : ""
+              }
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setDataValues({ ...dataValues, dateOfJoining: e.target.value })
               }
@@ -130,17 +178,23 @@ const [dataValues, setDataValues] = useState(() => (id ? (employeeData.find((ite
           </div>
           <div className="form">
             <Select
-              options={["HR", "UX", "UI", "Developer"]}
-              default_val={id ? data?.departmentId : "Developer"}
               label="Department"
-              onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-                setDataValues({ ...dataValues, department: e.target.value })
-              }
+              options={departmentOptions}
+              default_val={dataValues?.department.departmentName || ""}
+              onChange={(e) => {
+                const selectedDeptName = e.target.value;
+                const selectedDept = departments?.find(
+                  (d) => d.departmentName === selectedDeptName
+                );
+                if (selectedDept) {
+                  setDataValues({ ...dataValues, department: selectedDept });
+                }
+              }}
             />
           </div>
           <div className="form">
             <Select
-              options={["UI/UX designer", "Developer", "Tester"]}
+              options={["UI", "UX", "DEVELOPER", "HR"]}
               default_val={id ? data?.role : "Choose Role"}
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                 setDataValues({ ...dataValues, role: e.target.value })
@@ -150,7 +204,7 @@ const [dataValues, setDataValues] = useState(() => (id ? (employeeData.find((ite
           </div>
           <div className="form">
             <Select
-              options={["Active", "Inactive", "Probation"]}
+              options={["ACTIVE", "INACTIVE", "PROBATION"]}
               default_val={id ? data?.status : "Status"}
               label="Status"
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
@@ -239,12 +293,12 @@ const [dataValues, setDataValues] = useState(() => (id ? (employeeData.find((ite
                 type="text"
                 placeholder="Employee ID"
                 label="Employee ID"
-                defaultVal={id ? data?.employeeId : ""}
+                defaultVal={id ? data?.employeeID : ""}
                 disabled={!!id}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setDataValues({
                     ...dataValues,
-                    employeeId: e.target.value,
+                    employeeID: e.target.value,
                   })
                 }
               />
@@ -257,6 +311,7 @@ const [dataValues, setDataValues] = useState(() => (id ? (employeeData.find((ite
               Text="Save"
               className="Create"
               onClick={handleSubmit}
+              // disabled={isLoading}
             />
             <Button type="button" Text="Cancel" className="cancel" />
             <Button
