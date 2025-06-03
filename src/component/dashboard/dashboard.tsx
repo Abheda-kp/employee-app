@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addEmployee } from "../../store/employee/employeeReducer";
 import {
   useCreateMutation,
+  useGetEmployeeByIdQuery,
   useGetEmployeeListQuery,
   usePutEmployeeMutation,
 } from "../../api-service/employees/employees.api";
@@ -44,12 +45,16 @@ let createData = {
 };
 const Dashboard = () => {
   const { data: employeeData } = useGetEmployeeListQuery();
-  console.log("employeeData:", employeeData);
+  // console.log("employeeData:", employeeData);
   const { data: departments } = useGetDepartmentListQuery();
-  console.log("DEPTData:", departments);
+
+  // console.log("DEPTData:", departments);
   const departmentOptions = departments?.map((d) => d.departmentName) || [];
 
   const { id } = useParams();
+  //  const {data:individualData}=useGetEmployeeByIdQuery(Number(id))
+  //  console.log("individual id:",individualData)
+
   const [dataValues, setDataValues] = useState(() =>
     id ? employeeData?.find((item) => item.id === Number(id)) : createData
   );
@@ -67,9 +72,9 @@ const Dashboard = () => {
 
   const data = employeeData?.find((item: any) => item.id === Number(id));
 
-  console.log("dataaaaa:", data);
   const handleSubmit = () => {
     if (!id) {
+      console.log("id:", id);
       const payload = {
         ...dataValues,
         departmentId: Number(dataValues?.department.id),
@@ -94,10 +99,16 @@ const Dashboard = () => {
       // //  const action = { type: EMPLOYEE_ACTION_TYPES.UPDATE, payload: dataValues };
       // console.log("Dispatching action with payload:", dataValues);
       // dispatch(action);
+      console.log("dashboard;", dataValues);
       const payload = {
         id: data?.id,
-        employee: dataValues,
+        employee: {
+          ...dataValues,
+          departmentId: Number(dataValues?.department.id),
+          experience: Number(dataValues?.experience),
+        },
       };
+
       update(payload)
         .unwrap()
         .then(() => {})
@@ -119,7 +130,8 @@ const Dashboard = () => {
             <InputField
               type="text"
               placeholder="Employee name"
-              label="Employee Name"
+              label="Employee name"
+              ariaLabel="Username"
               defaultVal={id ? data?.name : ""}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setDataValues({ ...dataValues, name: e.target.value })
@@ -168,7 +180,7 @@ const Dashboard = () => {
               label="Joining Date"
               defaultVal={
                 id && data?.dateOfJoining
-                  ? moment(data.dateOfJoining).format("YYYY-MM-DD")
+                  ? moment(data.dateOfJoining).format("YYYY-MM-DD").slice(0, 10)
                   : ""
               }
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -183,6 +195,7 @@ const Dashboard = () => {
               default_val={dataValues?.department.departmentName || ""}
               onChange={(e) => {
                 const selectedDeptName = e.target.value;
+
                 const selectedDept = departments?.find(
                   (d) => d.departmentName === selectedDeptName
                 );

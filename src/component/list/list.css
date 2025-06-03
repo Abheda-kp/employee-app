@@ -28,18 +28,9 @@
   
 }
 
-.probation {
-  background-color: #ffe066; /* light yellow */
-  
-}
-.active{
-    background-color: lightgreen;
-}
-.inactive{
-    background-color: lightcoral;
-}
+
 .table {
-  width: 100%;
+  width: 95%;
   margin: 2%;
 
   /* border-radius: 10px;
@@ -48,6 +39,9 @@
     border-collapse:separate;
     border-spacing: 0 10px;
     background-color: #FAFAFA;
+  
+    
+   
 
 
 
@@ -56,23 +50,32 @@
 .icon-button{
   display: flex;
   gap: 2%;
-  margin-right: 5%;
+  
   background-color: rgb(171, 234, 255);
   padding: 10px;
-  border-radius: 50% 0% 0% 50%;
+  border-radius: 10px ;
+  height: 50px;
+  width: 260px;
+  
 }
 .icon-button i{
   background-color:rgb(46, 148, 243) ;
   color: white;
-  border-radius:  50% 0% 0% 50%;
-  align-content: center;
+  border-radius:  50% ;
+   display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
 }
 
 th, td {
   padding: 15px;
-  text-align: left;
+  text-align: center;
   border-bottom: 1px solid #f0f0f0;
   background-color: white;
+  width: 100px;
+  height: 100%;
+  padding: 30px;
 
 }
 

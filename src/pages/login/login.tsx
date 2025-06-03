@@ -20,55 +20,50 @@ import { useLoginMutation } from "../../api-service/auth/login.api";
 // const [password, setPassword] = useState("");
 
 const Login = () => {
-  if (localStorage.getItem("token")!=="")
-    return <Navigate to="/employees" />;
-
- 
-  const [login,{isLoading}]=useLoginMutation();
+  const navigate = useNavigate();
+  // if (localStorage.getItem("token") !== "") return navigate("/employees");
+  const [login, { isLoading }] = useLoginMutation();
   const [userName, setUserName] = useState("");
   const [passwordView, setPasswordView] = saveLocalStorage();
-  const navigate = useNavigate();
-  const [password, setPassword] = useState("");
-  const [error,setError]=useState("")
-  const onLogin = async (e) => {
-    e.preventDefault()
-   
-     await login({ email: userName, password: password })
-    .unwrap()
-    .then((response)=>{
-      console.log(response)
-         localStorage.setItem("token", response?.accessToken);
-       navigate("/employees");
 
-    }).catch((error)=>{
-      setError(error.data.message)
-      console.log(error)
-    })
-   
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const onLogin = async (e:any) => {
+    e.preventDefault();
+    await login({ email: userName, password: password })
+      .unwrap()
+      .then((response) => {
+        console.log(response);
+        localStorage.setItem("token", response?.accessToken);
+        navigate("/employees");
+      })
+      .catch((error) => {
+        setError(error.data.message);
+        console.log(error);
+      });
   };
 
   // const hook=saveLocalStorage();
   // const [error, setError] = useState("");
   // const usernameRef=useRef<HTMLInputElement>(null);
-  // useEffect(() => {
-  //   if (userName.length > 10) {
-  //     setError("Username length exceeded");}
-  //     if (password.endsWith("@")) {
-  //       setError("Correct password");
-  //     }
-  //   //  usernameRef.current?.focus()
+  useEffect(() => {
+    if (userName.length > 30) {
+      setError("Username must be less than 20 characters");}
+      
+    //  usernameRef.current?.focus()
 
-  // }, [userName, password]);
+  }, [userName]);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  // const [searchParams, setSearchParams] = useSearchParams();
 
-  const getQuery = () => {
-    console.log(searchParams.get("status"));
-  };
-  const setQuery = () => {
-    searchParams.set("status", "inactive");
-    setSearchParams(searchParams);
-  };
+  // const getQuery = () => {
+  //   console.log(searchParams.get("status"));
+  // };
+  // const setQuery = () => {
+  //   searchParams.set("status", "inactive");
+  //   setSearchParams(searchParams);
+  // };
 
   // const handleClick = () => {
   //   if (userName == "abhi" && password) {
@@ -101,11 +96,14 @@ const Login = () => {
               <InputField
                 type="text"
                 placeholder="Username"
+                label="Username"
+                id="Username"
                 // ref={usernameRef}
                 value={userName}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setUserName(e.target.value)
                 }
+
                 endAdornment={
                   <button
                     onClick={() => setUserName("")}
@@ -115,6 +113,7 @@ const Login = () => {
                     clear
                   </button>
                 }
+               
               />
             </div>
             {/* <p>this is the value:{Username}</p> */}
@@ -124,11 +123,14 @@ const Login = () => {
               type={passwordView ? "text" : "Password"}
               placeholder="Password"
               value={password}
+              id="Password"
+              label="Password"
+
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setPassword(e.target.value)
               }
             />
-      
+
             <label>Show password</label>
             <input
               type="checkbox"
@@ -137,15 +139,15 @@ const Login = () => {
                 setPasswordView(e.target.checked)
               }
             />
-
+            
             <Button
-              Text="Login In"
+              Text="Login"
               className="login"
               onClick={onLogin}
               disabled={isLoading}
               type="submit"
             />
-            {(error.length>0) && <p>Error:{error}</p>}
+           <p> {error}</p>
           </form>
           {/* <button onClick={getQuery}>get-Query-param</button> */}
           {/* <button onClick={setQuery}>set-Query-param</button> */}

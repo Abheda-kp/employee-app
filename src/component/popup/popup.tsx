@@ -1,4 +1,3 @@
-import { useDispatch } from "react-redux";
 import "./popup.css";
 import { useDeleteEmployeeMutation } from "../../api-service/employees/employees.api";
 import { useState } from "react";
@@ -17,7 +16,7 @@ const PopupModal = ({
   const [error, setError] = useState("");
   
   const handleDelete = async (id:number) => {
-
+    
     deleteEmployee(id)
       .unwrap()
       .then(() => {

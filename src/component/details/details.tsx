@@ -13,7 +13,7 @@ const EmployeeDetails = () => {
       <div className="outer-box">
         <div className="flex-content">
           <Content label="Employee Name" value={data?.name} />
-          <Content label="Joining Date" value={data?.dateOfJoining} />
+          <Content label="Joining Date" value={data?.dateOfJoining.slice(0,10)} />
           <Content label="Experience" value={data?.experience} />
           <Content label="Role" value={data?.role} />
           <Content label="Status" value={data?.status} />

@@ -11,6 +11,8 @@ const InputField = ({
   endAdornment = null,
   disabled,
   defaultVal,
+  ariaLabel
+
 }: {
   type?: string;
   placeholder?: string;
@@ -22,13 +24,16 @@ const InputField = ({
   endAdornment?: React.ReactNode;
   disabled?: boolean;
   defaultVal?: string | undefined | number;
+  ariaLabel?:string;
+  
 }) => {
   return (
     <>
       <div className="outer">
         <div className="input">
-          <label>{label}</label>
+          <label htmlFor={id}>{label}</label>
           <input
+            aria-label={ariaLabel}
             id={id}
             type={type}
             placeholder={placeholder}

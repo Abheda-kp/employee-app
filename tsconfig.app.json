@@ -23,5 +23,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "uncontrolled/button", "uncontrolled/inputfield"]
+  "include": ["src", "uncontrolled/button", "uncontrolled/inputfield", "vitest.config.ts"]
 }

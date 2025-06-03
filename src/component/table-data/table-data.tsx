@@ -34,10 +34,10 @@ const TableData = ({ status }: { status: string | null }) => {
     if (data.status === status || !status || status==="STATUS") {
       // console.log("status hi:", status);
       return (
-        <tr>
-          <td onClick={() => loadDetails(data.id)}>{data.name}</td>
+        <tr onClick={() => loadDetails(data.id)} >
+          <td >{data.name}</td>
           <td>{data.employeeID}</td>
-          <td>{data.dateOfJoining}</td>
+          <td>{data.dateOfJoining.slice(0,10)}</td>
           <td>{data.role}</td>
           <td>
             <div className={`status-colour  status-colour--${data.status}`}>
@@ -45,7 +45,7 @@ const TableData = ({ status }: { status: string | null }) => {
             </div>
           </td>
           <td>{data.experience}</td>
-          <td>
+          <td onClick={(e)=>e.stopPropagation()}>
             <span className="icon_trash" onClick={() => setShowModal(true)}>
               <FaTrash />
             </span>
@@ -59,7 +59,7 @@ const TableData = ({ status }: { status: string | null }) => {
           <PopupModal
             id={data.id}
             show={showModal}
-            onClose={() => setShowModal(false)}
+            onClose={(e) => {e.stopPropagation(); setShowModal(false)}}
           />
         </tr>
       );
