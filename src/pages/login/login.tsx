@@ -5,18 +5,46 @@ import { useEffect, useRef, useState } from "react";
 import mousePosition from "../../hooks/mouseposition";
 import { saveLocalStorage } from "../../hooks/localStorage";
 import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
-const Login = () => {
-  if(localStorage.getItem("isLoggedIn")==="true") return <Navigate to="/employees" />;
-  // const [counter,setCounter]=useState(0);
-  //    const handleClick=()=>{
-  //     setCounter(counter=>counter+1);
-  //     console.log(counter)
+import { useLoginMutation } from "../../api-service/auth/login.api";
 
-  //    }
-   
+// const Login = () => {
+
+// const [counter,setCounter]=useState(0);
+//    const handleClick=()=>{
+//     setCounter(counter=>counter+1);
+//     console.log(counter)
+
+//    }
+
+// const [userName, setUserName] = useState("");
+// const [password, setPassword] = useState("");
+
+const Login = () => {
+  
+  if (localStorage.getItem("token") !== "") return <Navigate to="/employees" />;
+
+  const [login, { isLoading }] = useLoginMutation();
   const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
   const [passwordView, setPasswordView] = saveLocalStorage();
+  const navigate = useNavigate();
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const onLogin = async (e) => {
+    e.preventDefault();
+
+    await login({ email: userName, password: password })
+      .unwrap()
+      .then((response) => {
+        console.log(response);
+        localStorage.setItem("token", response?.accessToken);
+        navigate("/employees/list");
+      })
+      .catch((error) => {
+        setError(error.data.message);
+        console.log(error);
+      });
+  };
+
   // const hook=saveLocalStorage();
   // const [error, setError] = useState("");
   // const usernameRef=useRef<HTMLInputElement>(null);
@@ -29,24 +57,25 @@ const Login = () => {
   //   //  usernameRef.current?.focus()
 
   // }, [userName, password]);
-  const [searchParams,setSearchParams]=useSearchParams(); 
 
-  const getQuery=()=>{
-     console.log(searchParams.get("status"))
-  }
-  const  setQuery=()=>{
-      searchParams.set("status","inactive")
-      setSearchParams(searchParams)
-  }
- const navigate = useNavigate();
-  const handleClick = () => {
-    if (userName == "abhi" && password) {
-      localStorage.setItem("isLoggedIn", "true");
-      navigate("/employees");
-    } else {
-      alert("Invalid user");
-    }
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const getQuery = () => {
+    console.log(searchParams.get("status"));
   };
+  const setQuery = () => {
+    searchParams.set("status", "inactive");
+    setSearchParams(searchParams);
+  };
+
+  // const handleClick = () => {
+  //   if (userName == "abhi" && password) {
+  //     localStorage.setItem("isLoggedIn", "true");
+  //     navigate("/employees");
+  //   } else {
+  //     alert("Invalid user");
+  //   }
+
   const [x, y] = mousePosition();
 
   // useEffect(()=>{
@@ -67,25 +96,25 @@ const Login = () => {
           <img src="kv-logo.png" alt="Keyvalue Logo" className="logo" />
           <form>
             <div className="first-input">
-            <InputField
-              type="text"
-              placeholder="Username"
-              // ref={usernameRef}
-              value={userName}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setUserName(e.target.value)
-              }
-              endAdornment={
-                <button
-                  onClick={() => setUserName("")}
-                  disabled={userName.length === 0}
-                  type="button"
-                >
-                  clear
-                </button>
-              }
-            />
-          </div>
+              <InputField
+                type="text"
+                placeholder="Username"
+                // ref={usernameRef}
+                value={userName}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setUserName(e.target.value)
+                }
+                endAdornment={
+                  <button
+                    onClick={() => setUserName("")}
+                    disabled={userName.length === 0}
+                    type="button"
+                  >
+                    clear
+                  </button>
+                }
+              />
+            </div>
             {/* <p>this is the value:{Username}</p> */}
 
             <InputField
@@ -97,7 +126,7 @@ const Login = () => {
                 setPassword(e.target.value)
               }
             />
-          
+
             <label>Show password</label>
             <input
               type="checkbox"
@@ -110,9 +139,11 @@ const Login = () => {
             <Button
               Text="Login In"
               className="login"
-              onClick={handleClick}
+              onClick={onLogin}
+              disabled={isLoading}
               type="submit"
             />
+            {error.length > 0 && <p>Error:{error}</p>}
           </form>
           {/* <button onClick={getQuery}>get-Query-param</button> */}
           {/* <button onClick={setQuery}>set-Query-param</button> */}
@@ -121,5 +152,4 @@ const Login = () => {
     </div>
   );
 };
-
 export default Login;

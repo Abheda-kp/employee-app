@@ -3,7 +3,7 @@ import Header from "../header/header";
 import Navbar from "../navbar/navbar";
 import "./layout.css";
 const Layout = () => {
-  if(localStorage.getItem("isLoggedIn")==="false") return <Navigate to="/login" />;
+   if(localStorage.getItem("token")==="") return <Navigate to="/login" />;
    
   return (
     <div className="layout">
