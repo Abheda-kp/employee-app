@@ -42,10 +42,15 @@ export const EmployeeStatus = {
   PROBATION: "PROBATION",
 } as const;
 
+export interface Department {
+  departmentName: string,
+  id: number,
+} 
+
 export type Status = (typeof EmployeeStatus)[keyof typeof EmployeeStatus];
 
 export interface Employee {
-  employeeId: string;
+  employeeID: string;
 
   email: string;
 
@@ -59,49 +64,48 @@ export interface Employee {
 
   role: Role;
 
-  dateOfJoining: Date;
+  dateOfJoining: string;
 
   experience: number;
 
   status: Status;
 
-  department: number | string;
+  department: Department;
+
+  id: number;
 }
 
-export const EMPLOYEE_ACTION_TYPES = {
-  DELETE: "employee/DELETE",
+// export const EMPLOYEE_ACTION_TYPES = {
+//   DELETE: "employee/DELETE",
 
-  UPDATE: "employee/UPDATE",
+//   UPDATE: "employee/UPDATE",
 
-  ADD:"employee/ADD"
-} as const;
+//   ADD:"employee/ADD"
+// } as const;
 
-export type EmployeeActionTypes =
-  (typeof EMPLOYEE_ACTION_TYPES)[keyof typeof EMPLOYEE_ACTION_TYPES];
+// export type EmployeeActionTypes =
+//   (typeof EMPLOYEE_ACTION_TYPES)[keyof typeof EMPLOYEE_ACTION_TYPES];
 
 export interface EmployeeState {
   employees: Employee[];
 }
 
-export interface DeleteEmployeeAction {
-  type: typeof EMPLOYEE_ACTION_TYPES.DELETE;
+// export interface DeleteEmployeeAction {
+//   type: typeof EMPLOYEE_ACTION_TYPES.DELETE;
 
-  payload: string; // employee id
-}
+//   payload: string; // employee id
+// }
 
-export interface UpdateEmployeeAction {
-  type: typeof EMPLOYEE_ACTION_TYPES.UPDATE;
+// export interface UpdateEmployeeAction {
+//   type: typeof EMPLOYEE_ACTION_TYPES.UPDATE;
 
-  payload: Employee;
-}
-export interface AddEmployeeAction{
-  type:typeof EMPLOYEE_ACTION_TYPES.ADD;
-  payload:Employee
-}
+//   payload: Employee;
+// }
+// export interface AddEmployeeAction{
+//   type:typeof EMPLOYEE_ACTION_TYPES.ADD;
+//   payload:Employee
+// }
 
-
-
-export type EmployeeAction = DeleteEmployeeAction | UpdateEmployeeAction | AddEmployeeAction ;
-
+// export type EmployeeAction = DeleteEmployeeAction | UpdateEmployeeAction | AddEmployeeAction ;
 
 //  EditEmployeeAction

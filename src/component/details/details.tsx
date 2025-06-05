@@ -1,20 +1,19 @@
-import { useSelector } from "react-redux";
 import Content from "../content/content";
 import "./details.css";
 import { useParams } from "react-router-dom";
+import { useAppSelector } from "../../store/store";
+import { useGetEmployeeByIdQuery } from "../../api-service/employees/employees.api";
 const EmployeeDetails = () => {
-  const employeeData = useSelector((state) => state.employees);
   const { id } = useParams();
+  const { data} = useGetEmployeeByIdQuery(Number(id));
+  console.log(data)
   
-  const data = employeeData.find((item) => item.employeeId === id)
-  
- 
   return (
     <>
       <div className="outer-box">
         <div className="flex-content">
           <Content label="Employee Name" value={data?.name} />
-          <Content label="Joining Date" value={data?.dateOfJoining} />
+          <Content label="Joining Date" value={data?.dateOfJoining.slice(0,10)} />
           <Content label="Experience" value={data?.experience} />
           <Content label="Role" value={data?.role} />
           <Content label="Status" value={data?.status} />
@@ -32,7 +31,7 @@ const EmployeeDetails = () => {
               data?.address.pincode
             }
           />
-          <Content label="Employee ID" value={data?.employeeId} />
+          <Content label="Employee ID" value={data?.employeeID} />
         </div>
       </div>
     </>
