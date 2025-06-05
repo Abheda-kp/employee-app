@@ -57,10 +57,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   // const dispatch = useAppDispatch();
 
-  const handleClick = () => {
-    localStorage.setItem("token", "");
-    navigate("/login");
-  };
+ 
   const [create, { isLoading }] = useCreateMutation();
   const [update] = usePutEmployeeMutation();
   const [error, setError] = useState("");
@@ -321,12 +318,7 @@ const Dashboard = () => {
               // disabled={isLoading}
             />
             <Button type="button" Text="Cancel" className="cancel" />
-            <Button
-              type="button"
-              Text="Logout"
-              className="cancel"
-              onClick={handleClick}
-            />
+           
           </div>
         </div>
       </div>
