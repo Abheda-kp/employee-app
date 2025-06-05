@@ -14,15 +14,15 @@
 
 
 .status-colour--ACTIVE{
-    background-color: lightgreen;
+     background-color: #D3F4BE
 }
 
 .status-colour--INACTIVE{
-   background-color: lightcoral;
+      background-color:  #FFBFBF;
 }
 
 .status-colour--PROBATION{
-  background-color: rgb(248, 248, 106);
+  background-color: #F5ECB8;
 }
 
 .status-colour{

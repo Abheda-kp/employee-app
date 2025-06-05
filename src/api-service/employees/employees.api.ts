@@ -38,7 +38,7 @@ export const employeeApi = baseApi.injectEndpoints({
       query:(payload)=>({
         url:`/employees/${payload.id}`,
         method:"put",
-        body:payload.employee
+        body:payload
       }),
        invalidatesTags: ["EMPLOYEES"]
     })

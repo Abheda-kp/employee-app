@@ -56,16 +56,22 @@
 .icon-button{
   display: flex;
   gap: 2%;
-  margin-right: 5%;
+  
   background-color: rgb(171, 234, 255);
   padding: 10px;
-  border-radius: 50% 0% 0% 50%;
+  border-radius: 10px ;
+  height: 50px;
+  width: 260px;
+  
 }
 .icon-button i{
   background-color:rgb(46, 148, 243) ;
   color: white;
-  border-radius:  50% 0% 0% 50%;
-  align-content: center;
+  border-radius:  50% ;
+   display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
 }
 
 th, td {

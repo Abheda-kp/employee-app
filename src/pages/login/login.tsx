@@ -20,31 +20,29 @@ import { useLoginMutation } from "../../api-service/auth/login.api";
 // const [password, setPassword] = useState("");
 
 const Login = () => {
-  if (localStorage.getItem("token")!=="")
-    return <Navigate to="/employees" />;
+  
+  if (localStorage.getItem("token") !== "") return <Navigate to="/employees" />;
 
- 
-  const [login,{isLoading}]=useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
   const [userName, setUserName] = useState("");
   const [passwordView, setPasswordView] = saveLocalStorage();
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
-  const [error,setError]=useState("")
+  const [error, setError] = useState("");
   const onLogin = async (e) => {
-    e.preventDefault()
-   
-     await login({ email: userName, password: password })
-    .unwrap()
-    .then((response)=>{
-      console.log(response)
-         localStorage.setItem("token", response?.accessToken);
-       navigate("/employees");
+    e.preventDefault();
 
-    }).catch((error)=>{
-      setError(error.data.message)
-      console.log(error)
-    })
-   
+    await login({ email: userName, password: password })
+      .unwrap()
+      .then((response) => {
+        console.log(response);
+        localStorage.setItem("token", response?.accessToken);
+        navigate("/employees/list");
+      })
+      .catch((error) => {
+        setError(error.data.message);
+        console.log(error);
+      });
   };
 
   // const hook=saveLocalStorage();
@@ -128,7 +126,7 @@ const Login = () => {
                 setPassword(e.target.value)
               }
             />
-      
+
             <label>Show password</label>
             <input
               type="checkbox"
@@ -145,7 +143,7 @@ const Login = () => {
               disabled={isLoading}
               type="submit"
             />
-            {(error.length>0) && <p>Error:{error}</p>}
+            {error.length > 0 && <p>Error:{error}</p>}
           </form>
           {/* <button onClick={getQuery}>get-Query-param</button> */}
           {/* <button onClick={setQuery}>set-Query-param</button> */}

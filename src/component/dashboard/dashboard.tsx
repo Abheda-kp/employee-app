@@ -68,17 +68,21 @@ const Dashboard = () => {
   const data = employeeData?.find((item: any) => item.id === Number(id));
 
   const handleSubmit = () => {
+    // const dateOfJoiningISO = dataValues?.dateOfJoining
+    //   ? new Date(dataValues.dateOfJoining).toISOString()
+    //   : "";
     if (!id) {
       const payload = {
         ...dataValues,
         departmentId: Number(dataValues?.department.id),
         experience: Number(dataValues?.experience),
+      //  dateOfJoining: dateOfJoiningISO,
       };
       create(payload)
         .unwrap()
         .then((response) => {
           console.log("response is:", response);
-          // navigate("/employees");
+          navigate("/employees");
         })
         .catch((error) => {
           setError(error.data.message);
@@ -93,10 +97,12 @@ const Dashboard = () => {
       // //  const action = { type: EMPLOYEE_ACTION_TYPES.UPDATE, payload: dataValues };
       // console.log("Dispatching action with payload:", dataValues);
       // dispatch(action);
-      console.log("datavalues:",dataValues)
+      console.log("datavalues:", dataValues);
       const payload = {
         ...dataValues,
-        departmentId: Number(dataValues?.department.id),
+        department: Number(dataValues?.department.id),
+        experience: Number(dataValues?.experience),
+     //   dateOfJoining: dateOfJoiningISO,
       };
       console.log("payload:", payload);
       update(payload)

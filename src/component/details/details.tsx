@@ -6,7 +6,8 @@ import { useGetEmployeeByIdQuery } from "../../api-service/employees/employees.a
 const EmployeeDetails = () => {
   const { id } = useParams();
   const { data} = useGetEmployeeByIdQuery(Number(id));
-  console.log(data)
+  console.log("details:",data)
+ 
   
   return (
     <>
@@ -22,13 +23,13 @@ const EmployeeDetails = () => {
           <Content
             label="Address"
             value={
-              data?.address.houseNo +
+              data?.address?.houseNo +
               " " +
-              data?.address.line1 +
+              data?.address?.line1 +
               " " +
-              data?.address.line2 +
+              data?.address?.line2 +
               " " +
-              data?.address.pincode
+              data?.address?.pincode
             }
           />
           <Content label="Employee ID" value={data?.employeeID} />
